@@ -36,7 +36,22 @@ async function queryBlockChain(){
 	return data.USD;
 }
 
-export {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain};
+async function queryCoinMarketCap(){
+	const apiKey = 'aa0694ed-cd02-4021-ae44-dda39ee52268';
+	const coinMarketCapBitcoinUrl = "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
+	const queryStringBTC = "?CMC_PRO_API_KEY="+apiKey+"&symbol=BTC";
+	const bitCoinResponse = await fetch(coinMarketCapBitcoinUrl+queryStringBTC);
+	const bitCoinData = await bitCoinResponse.json();
+
+	const coinMarketCapEthereumUrl = "https://cors-anywhere.herokuapp.com/https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest";
+	const queryStringETH = "?CMC_PRO_API_KEY="+apiKey+"&symbol=ETH";
+	const ethereumResponse = await fetch(coinMarketCapEthereumUrl+queryStringETH);
+	const ethereumData = await ethereumResponse.json();
+
+	return {"BitCoin": bitCoinData.data.BTC.quote.USD, "Ethereum": ethereumData.data.ETH.quote.USD};
+}
+
+export {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap};
 
 // queryCoinBaseBuy()
 // .then(data => {

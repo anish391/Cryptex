@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain} from './BitcoinApis.js';
+import {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap} from './BitcoinApis.js';
+import './BitcoinComparison.css';
+import CurrencyTable from './CurrencyTable';
 
 const PriceType = {
 	BUY: 0,
@@ -64,19 +66,42 @@ class BitcoinComparison extends Component {
 		queryBlockChain()
 		.then(data => {
 			console.log("Blockchain.com");
-			var buyPrice = {
+			var BitCoin = {
 				exchange: "Blockchain.com",
 				amount: data.buy,
-				currency: "Bitcoin"
+				currency: "BitCoin"
 			};
-			var sellPrice = {
+			var Ethereum = {
 				exchange: "Blockchain.com",
 				amount: data.sell,
-				currency: "Bitcoin"
+				currency: "BitCoin"
 			}
 			this.setState(prevState => ({
-				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, buyPrice],
-				bitcoinSellPrices: [...prevState.bitcoinSellPrices, sellPrice]
+				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, BitCoin],
+				bitcoinSellPrices: [...prevState.bitcoinSellPrices, Ethereum]
+			}));
+		})
+		.catch(error => console.log(error.message));
+
+		queryCoinMarketCap()
+		.then(data => {
+			console.log("CoinMarketCap");
+			var {BitCoin, Ethereum} = data;
+			BitCoin = {
+				exchange: "CoinMarketCap",
+				amount: BitCoin.price,
+				currency: "BitCoin"
+			}
+			Ethereum = {
+				exchange: "CoinMarketCap",
+				amount: Ethereum.price,
+				currency: "Ethereum"
+			}
+			this.setState(prevState => ({
+				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, BitCoin],
+				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoin],
+				ethereumBuyPrices: [...prevState.ethereumBuyPrices, Ethereum],
+				ethereumSellPrices: [...prevState.ethereumSellPrices, Ethereum]
 			}));
 		})
 		.catch(error => console.log(error.message));
@@ -85,12 +110,29 @@ class BitcoinComparison extends Component {
 
 
 
+
 	render(){
+		var { bitcoinBuyPrices, bitcoinSellPrices, ethereumBuyPrices, ethereumSellPrices} = this.state;
+		bitcoinBuyPrices = [].concat(bitcoinBuyPrices).sort((a,b) => a.amount > b.amount ? 1:-1);
+		ethereumBuyPrices = [].concat(ethereumBuyPrices).sort((a,b) => a.amount > b.amount ? 1:-1);
+		bitcoinSellPrices = [].concat(bitcoinSellPrices).sort((a,b)=> a.amount < b.amount ? 1:-1);
+		ethereumSellPrices = [].concat(ethereumSellPrices).sort((a,b)=> a.amount < b.amount ? 1:-1);
+		console.log(ethereumSellPrices);
+		
+
 		return(
-			<div className="xyz">
-				<h1>Class</h1>
-			</div>
-		);
+			<div>
+				<div className="rowC">
+			    <CurrencyTable prices={bitcoinBuyPrices}/><br/>
+			    <CurrencyTable prices={bitcoinSellPrices}/><br/>
+			  </div>
+			  <br/><br/>
+			  <div className="rowC">
+			    <CurrencyTable prices={ethereumBuyPrices}/><br/>
+			    <CurrencyTable prices={ethereumSellPrices}/><br/>
+			  </div>
+		  </div>
+		)
 		
 	}
 }
