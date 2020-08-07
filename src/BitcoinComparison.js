@@ -10,22 +10,32 @@ class BitcoinComparison extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			buyPrices: [],
-			sellPrices: []
+			bitcoinBuyPrices: [],
+			bitcoinSellPrices: [],
+			ethereumBuyPrices: [],
+			ethereumSellPrices: []
 		};
 	}
 
 	componentDidMount() {
+
 		queryCoinBaseBuy()
 		.then(data => {
 			console.log("Coinbase buy");
-			var buyPrice = {
+			var {BitCoin, Ethereum} = data;
+			BitCoin = {
+				amount: BitCoin.amount,
 				exchange: "Coinbase",
-				price: data.amount
+				currency: "Bitcoin"
 			}
-			console.log(buyPrice);
+			Ethereum = {
+				amount: Ethereum.amount,
+				exchange: "Coinbase",
+				currency: "Ethereum"
+			}
 			this.setState(prevState => ({
-				buyPrices: [...prevState.buyPrices, buyPrice]
+				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, BitCoin],
+				ethereumBuyPrices: [...prevState.ethereumBuyPrices, Ethereum]
 			}));
 		})
 		.catch(error => console.log(error.message));
@@ -33,34 +43,44 @@ class BitcoinComparison extends Component {
 		queryCoinBaseSell()
 		.then(data => {
 			console.log("Coinbase sell");
-			var sellPrice = {
+			var {BitCoin, Ethereum} = data;
+			BitCoin = {
+				amount: BitCoin.amount,
 				exchange: "Coinbase",
-				price: data.amount
+				currency: "Bitcoin"
 			}
-			let {sellPrices} = this.state;
+			Ethereum = {
+				amount: Ethereum.amount,
+				exchange: "Coinbase",
+				currency: "Ethereum"
+			}
 			this.setState(prevState => ({
-				sellPrices: [...prevState.sellPrices, sellPrice]
+				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoin],
+				ethereumSellPrices: [...prevState.ethereumSellPrices, Ethereum]
 			}));
 		})
 		.catch(error => console.log(error.message));
 
 		queryBlockChain()
 		.then(data => {
-			console.log("Blockchain buy");
+			console.log("Blockchain.com");
 			var buyPrice = {
 				exchange: "Blockchain.com",
-				price: data.buy
+				amount: data.buy,
+				currency: "Bitcoin"
 			};
 			var sellPrice = {
 				exchange: "Blockchain.com",
-				price: data.sell
+				amount: data.sell,
+				currency: "Bitcoin"
 			}
 			this.setState(prevState => ({
-				buyPrices: [...prevState.buyPrices, buyPrice],
-				sellPrices: [...prevState.sellPrices, sellPrice]
+				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, buyPrice],
+				bitcoinSellPrices: [...prevState.bitcoinSellPrices, sellPrice]
 			}));
 		})
-		.catch(error => console.log(error.message));	
+		.catch(error => console.log(error.message));
+
 	}
 
 

@@ -1,19 +1,31 @@
 const fetch = require('node-fetch');
 
 async function queryCoinBaseBuy(){
-	const coinBaseUrl = "https://api.coinbase.com/v2/prices/buy?currency=USD"
-	const response = await fetch(coinBaseUrl);
-	const data = await response.json();
-	return data.data;
+	const coinBaseBitcoinUrl = "https://api.coinbase.com/v2/prices/buy?currency=USD"
+	const bitCoinResponse = await fetch(coinBaseBitcoinUrl);
+	const bitCoinData = await bitCoinResponse.json();
+	const coinBaseEthereumUrl = "https://api.coinbase.com/v2/prices/ETH-USD/buy"
+	const ethereumResponse = await fetch(coinBaseEthereumUrl);
+	const ethereumData = await ethereumResponse.json();
+
+	// console.log(bitCoinData.data);
+	// console.log(ethereumData.data);
+
+	return {"BitCoin": bitCoinData.data,"Ethereum": ethereumData.data};
 }
 
 async function queryCoinBaseSell(){
-	const coinBaseUrl = "https://api.coinbase.com/v2/prices/sell?currency=USD"
-	
+	const coinBaseBitcoinUrl = "https://api.coinbase.com/v2/prices/sell?currency=USD"
+	const bitCoinResponse = await fetch(coinBaseBitcoinUrl);
+	const bitCoinData = await bitCoinResponse.json();
+	const coinBaseEthereumUrl = "https://api.coinbase.com/v2/prices/ETH-USD/sell"
+	const ethereumResponse = await fetch(coinBaseEthereumUrl);
+	const ethereumData = await ethereumResponse.json();
 
-	const response = await fetch(coinBaseUrl);
-	const data = await response.json();
-	return data.data;
+	// console.log(bitCoinData.data);
+	// console.log(ethereumData.data);
+
+	return {"BitCoin": bitCoinData.data,"Ethereum": ethereumData.data};
 }
 
 async function queryBlockChain(){

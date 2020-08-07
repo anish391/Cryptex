@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="flag-app">
       <header className ="title-header">
-        <h1 className="title-text">Bitcoin Price Comparison</h1>
+        <h1 className="title-text">Cryptex</h1>
       </header>
       <BitcoinComparison />
     </div>
