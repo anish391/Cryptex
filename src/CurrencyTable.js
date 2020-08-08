@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { withStyles} from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -26,7 +26,7 @@ export default function CurrencyTable(props){
           <TableRow>
           	<StyledTableCell>Rank</StyledTableCell>
             <StyledTableCell align="right">Crypto Exchange</StyledTableCell>
-            <StyledTableCell align="right">{props.type==PriceType.BUY ? "Buying Price" : "Selling Price"}</StyledTableCell>
+            <StyledTableCell align="right">{props.type===PriceType.BUY ? "Buying Price" : "Selling Price"}</StyledTableCell>
           	<StyledTableCell align="right">Crypto Currency</StyledTableCell>
           </TableRow>
         </TableHead>

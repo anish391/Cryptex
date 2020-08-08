@@ -21,7 +21,6 @@ class BitcoinComparison extends Component {
 
 		queryCoinBaseBuy()
 		.then(data => {
-			console.log("Coinbase buy");
 			var {BitCoin, Ethereum} = data;
 			BitCoin = {
 				amount: BitCoin.amount,
@@ -42,7 +41,6 @@ class BitcoinComparison extends Component {
 
 		queryCoinBaseSell()
 		.then(data => {
-			console.log("Coinbase sell");
 			var {BitCoin, Ethereum} = data;
 			BitCoin = {
 				amount: BitCoin.amount,
@@ -63,7 +61,6 @@ class BitcoinComparison extends Component {
 
 		queryBlockChain()
 		.then(data => {
-			console.log("Blockchain.com");
 			var BitCoin = {
 				exchange: "Blockchain.com",
 				amount: data.buy,
@@ -83,7 +80,6 @@ class BitcoinComparison extends Component {
 
 		queryCoinMarketCap()
 		.then(data => {
-			console.log("CoinMarketCap");
 			var {BitCoin, Ethereum} = data;
 			BitCoin = {
 				exchange: "CoinMarketCap",
@@ -106,7 +102,6 @@ class BitcoinComparison extends Component {
 
 		queryKraken()
 		.then(data => {
-			console.log("Kraken");
 			var {BitCoin, Ethereum} = data;
 			const BitCoinBuy = {
 				exchange: "Kraken",
@@ -139,9 +134,7 @@ class BitcoinComparison extends Component {
 
 		queryGemini()
 		.then(data => {
-			console.log("Gemini");
 			var {BitCoin, Ethereum} = data;
-			console.log(data);
 			const BitCoinBuy = {
 				exchange: "Gemini",
 				amount: BitCoin.bid,
@@ -171,18 +164,6 @@ class BitcoinComparison extends Component {
 		})
 
 	}
-
-	// <div className="rowC">
-	// 		    <CurrencyTable prices={bitcoinBuyPrices}/><br/>
-	// 		    <CurrencyTable prices={bitcoinSellPrices}/><br/>
-	// 		  </div>
-	// 		  <br/><br/>
-	// 		  <div className="rowC">
-	// 		    <CurrencyTable prices={ethereumBuyPrices}/><br/>
-	// 		    <CurrencyTable prices={ethereumSellPrices}/><br/>
-	// 		  </div>
-
-
 
 	render(){
 		var { bitcoinBuyPrices, bitcoinSellPrices, ethereumBuyPrices, ethereumSellPrices} = this.state;
