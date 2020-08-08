@@ -175,18 +175,18 @@ class BitcoinComparison extends Component {
 		return(
 			<div className="grid">
 				<Grid container spacing={5} style={{ marginTop: '1px' }}>
-					<Grid item lg={6} >
+					<Grid item xs={12} lg={6} >
 						<CurrencyTable prices={bitcoinBuyPrices} type={PriceType.BUY} /><br/>
 					</Grid>
-					<Grid item lg={6}>
+					<Grid item xs={12} lg={6}>
 						<CurrencyTable prices={bitcoinSellPrices} type={PriceType.SELL}/><br/>
 					</Grid>
 				</Grid>
 				<Grid container spacing={5}>
-					<Grid item lg={6} >
+					<Grid item xs={12} lg={6} >
 						<CurrencyTable prices={ethereumBuyPrices} type={PriceType.BUY}/><br/>
 					</Grid>
-					<Grid item lg={6}>
+					<Grid item xs={12} lg={6}>
 						<CurrencyTable prices={ethereumSellPrices} type={PriceType.SELL}/><br/>
 					</Grid>
 				</Grid>
