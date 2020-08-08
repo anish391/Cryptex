@@ -1,27 +1,39 @@
+body{
+  width:100%;
+  height:100%;
+  overflow-x: hidden;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+body::-webkit-scrollbar {
+    display: none;
+}
+
 .flag-app {
   text-align: center;
 }
 
 .title-header {
   display: flex;
-  height: 10vh;
+  height: 6vh;
   background-size: cover;
   background-repeat: no-repeat;
   justify-content: left;
   padding: 10px;
   align-items: center;
-  background-color: #2B7A78;
+  background-color: #2e494c;
 }
 
 .title-text {
-  font-size: 2.75em;
+  font-size: 1.5em;
   color: #e9eff9;
   text-shadow: 3px 3px 4px black;
 }
 
 @media (max-width: 450px) {
   .title-header {
-    height: 10vh;
+    height: 6vh;
   }
 
   .title-text {

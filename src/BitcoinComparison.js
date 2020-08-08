@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap, queryKraken, queryGemini} from './BitcoinApis.js';
 import './BitcoinComparison.css';
+import Grid from '@material-ui/core/Grid';
 import CurrencyTable from './CurrencyTable';
+import PriceType from './PriceType';
 
-const PriceType = {
-	BUY: 0,
-	SELL: 1
-};
 
 class BitcoinComparison extends Component {
 	constructor(props){
@@ -174,6 +172,15 @@ class BitcoinComparison extends Component {
 
 	}
 
+	// <div className="rowC">
+	// 		    <CurrencyTable prices={bitcoinBuyPrices}/><br/>
+	// 		    <CurrencyTable prices={bitcoinSellPrices}/><br/>
+	// 		  </div>
+	// 		  <br/><br/>
+	// 		  <div className="rowC">
+	// 		    <CurrencyTable prices={ethereumBuyPrices}/><br/>
+	// 		    <CurrencyTable prices={ethereumSellPrices}/><br/>
+	// 		  </div>
 
 
 
@@ -185,16 +192,23 @@ class BitcoinComparison extends Component {
 		ethereumSellPrices = [].concat(ethereumSellPrices).sort((a,b)=> a.amount < b.amount ? 1:-1);
 		
 		return(
-			<div>
-				<div className="rowC">
-			    <CurrencyTable prices={bitcoinBuyPrices}/><br/>
-			    <CurrencyTable prices={bitcoinSellPrices}/><br/>
-			  </div>
-			  <br/><br/>
-			  <div className="rowC">
-			    <CurrencyTable prices={ethereumBuyPrices}/><br/>
-			    <CurrencyTable prices={ethereumSellPrices}/><br/>
-			  </div>
+			<div className="grid">
+				<Grid container spacing={5} style={{ marginTop: '1px' }}>
+					<Grid item lg={6} >
+						<CurrencyTable prices={bitcoinBuyPrices} type={PriceType.BUY} /><br/>
+					</Grid>
+					<Grid item lg={6}>
+						<CurrencyTable prices={bitcoinSellPrices} type={PriceType.SELL}/><br/>
+					</Grid>
+				</Grid>
+				<Grid container spacing={5}>
+					<Grid item lg={6} >
+						<CurrencyTable prices={ethereumBuyPrices} type={PriceType.BUY}/><br/>
+					</Grid>
+					<Grid item lg={6}>
+						<CurrencyTable prices={ethereumSellPrices} type={PriceType.SELL}/><br/>
+					</Grid>
+				</Grid>
 		  </div>
 		)
 		

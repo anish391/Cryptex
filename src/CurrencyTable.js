@@ -7,64 +7,43 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import PriceType from './PriceType';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: "#3AAFA9",
+    backgroundColor: "#3a827f",
     color: "#e9eff9",
-  	"text-shadow": "1px 1px 1.1px black"
-  },
-  body: {
-    fontSize: 14,
+  	"text-shadow": "1px 1px 1.1px black",
   },
 }))(TableCell);
 
-const RecommendedTableCell = withStyles((theme) => ({
-  head: {
-    backgroundColor: "#3AAFA9",
-    color: "#e9eff9",
-  	"text-shadow": "1px 1px 1.1px black"
-  },
-  body: {
-    fontSize: 14,
-  },
-}))(TableCell);
+export default function CurrencyTable(props){
 
-class CurrencyTable extends Component{
-
-	render() {
-			return(
-			<TableContainer component={Paper}>
-	      <Table aria-label="simple table">
-	        <TableHead>
-	          <TableRow>
-	            <StyledTableCell>Crypto Exchange</StyledTableCell>
-	            <StyledTableCell align="right">Price</StyledTableCell>
-	            <StyledTableCell align="right">Crypto-currency</StyledTableCell>
-	          </TableRow>
-	        </TableHead>
-	        <TableBody>
-	          {this.props.prices.map((row, index) => (
-	          	index==0 ? 
-	            <TableRow key={index}>
-	              <RecommendedTableCell component="th" scope="row">
-	                {row.exchange}
-	              </RecommendedTableCell>
-	              <RecommendedTableCell align="right">{row.amount}</RecommendedTableCell>
-	              <RecommendedTableCell align="right">{row.currency}</RecommendedTableCell>
-	            </TableRow>
-	            :<TableRow key={index}>
-	              <TableCell component="th" scope="row">
-	                {row.exchange}
-	              </TableCell>
-	              <TableCell align="right">{row.amount}</TableCell>
-	              <TableCell align="right">{row.currency}</TableCell>
-	            </TableRow>
-	          ))}
-	        </TableBody>
-	      </Table>
-	    </TableContainer>);
-	}
+		return(
+		<TableContainer component={Paper} style={{marginLeft: "30px", width:"90%"}}>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+          	<StyledTableCell>Rank</StyledTableCell>
+            <StyledTableCell align="right">Crypto Exchange</StyledTableCell>
+            <StyledTableCell align="right">{props.type==PriceType.BUY ? "Buying Price" : "Selling Price"}</StyledTableCell>
+          	<StyledTableCell align="right">Crypto Currency</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+        	
+          {props.prices.map((row, index) => (
+          	<TableRow key={index} style ={ index % 2 ? { background : "#edf7f8" }:{ background : "white" }}>
+              <TableCell component="th" scope="row">{index+1}</TableCell>
+              <TableCell align="right">
+                {row.exchange}
+              </TableCell>
+              <TableCell align="right">{row.amount}</TableCell>
+              <TableCell align="right">{row.currency}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>);
 }
 
-export default CurrencyTable;
