@@ -51,7 +51,30 @@ async function queryCoinMarketCap(){
 	return {"BitCoin": bitCoinData.data.BTC.quote.USD, "Ethereum": ethereumData.data.ETH.quote.USD};
 }
 
-export {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap};
+async function queryKraken(){
+	const krakenBitcoinUrl = "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD";
+	const krakenBitcoinResponse = await fetch(krakenBitcoinUrl);
+	const krakenBitcoinData = await krakenBitcoinResponse.json();
+
+	const krakenEthereumUrl = "https://api.kraken.com/0/public/Ticker?pair=XETHZUSD";
+	const krakenEthereumResponse = await fetch(krakenEthereumUrl);
+	const krakenEthereumData = await krakenEthereumResponse.json();
+
+	return {"BitCoin": krakenBitcoinData.result.XXBTZUSD, "Ethereum": krakenEthereumData.result.XETHZUSD};
+}
+
+async function queryGemini(){
+	const geminiBitcoinUrl = "https://api.gemini.com/v1/pubticker/btcusd";
+	const geminiBitcoinResponse = await fetch(geminiBitcoinUrl);
+	const geminiBitcoinData = await geminiBitcoinResponse.json();
+
+	const geminiEthereumUrl = "https://api.gemini.com/v1/pubticker/ethusd";
+	const geminiEthereumResponse = await fetch(geminiEthereumUrl);
+	const geminiEthereumData = await geminiEthereumResponse.json();
+	return {"BitCoin": geminiBitcoinData, "Ethereum": geminiEthereumData};
+}
+
+export {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap, queryKraken, queryGemini};
 
 // queryCoinBaseBuy()
 // .then(data => {

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap} from './BitcoinApis.js';
+import {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap, queryKraken, queryGemini} from './BitcoinApis.js';
 import './BitcoinComparison.css';
 import CurrencyTable from './CurrencyTable';
 
@@ -106,6 +106,72 @@ class BitcoinComparison extends Component {
 		})
 		.catch(error => console.log(error.message));
 
+		queryKraken()
+		.then(data => {
+			console.log("Kraken");
+			var {BitCoin, Ethereum} = data;
+			const BitCoinBuy = {
+				exchange: "Kraken",
+				amount: BitCoin.b[0],
+				currency: "BitCoin"
+			}
+			const BitCoinSell = {
+				exchange: "Kraken",
+				amount: BitCoin.a[0],
+				currency: "BitCoin"
+			}
+			const EthereumBuy = {
+				exchange: "Kraken",
+				amount: Ethereum.b[0],
+				currency: "Ethereum"
+			}
+			const EthereumSell = {
+				exchange: "Kraken",
+				amount: Ethereum.a[0],
+				currency: "Ethereum"
+			}
+			this.setState(prevState => ({
+				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, BitCoinBuy],
+				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoinSell],
+				ethereumBuyPrices: [...prevState.ethereumBuyPrices, EthereumBuy],
+				ethereumSellPrices: [...prevState.ethereumSellPrices, EthereumSell]
+			}));
+		})
+		.catch(error => console.log(error.message));
+
+		queryGemini()
+		.then(data => {
+			console.log("Gemini");
+			var {BitCoin, Ethereum} = data;
+			console.log(data);
+			const BitCoinBuy = {
+				exchange: "Gemini",
+				amount: BitCoin.bid,
+				currency: "BitCoin"
+			}
+			const BitCoinSell = {
+				exchange: "Gemini",
+				amount: BitCoin.ask,
+				currency: "BitCoin"
+			}
+			const EthereumBuy = {
+				exchange: "Gemini",
+				amount: Ethereum.bid,
+				currency: "Ethereum"
+			}
+			const EthereumSell = {
+				exchange: "Gemini",
+				amount: Ethereum.ask,
+				currency: "Ethereum"
+			}
+			this.setState(prevState => ({
+				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, BitCoinBuy],
+				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoinSell],
+				ethereumBuyPrices: [...prevState.ethereumBuyPrices, EthereumBuy],
+				ethereumSellPrices: [...prevState.ethereumSellPrices, EthereumSell]
+			}));
+		})
+
 	}
 
 
@@ -117,9 +183,7 @@ class BitcoinComparison extends Component {
 		ethereumBuyPrices = [].concat(ethereumBuyPrices).sort((a,b) => a.amount > b.amount ? 1:-1);
 		bitcoinSellPrices = [].concat(bitcoinSellPrices).sort((a,b)=> a.amount < b.amount ? 1:-1);
 		ethereumSellPrices = [].concat(ethereumSellPrices).sort((a,b)=> a.amount < b.amount ? 1:-1);
-		console.log(ethereumSellPrices);
 		
-
 		return(
 			<div>
 				<div className="rowC">
