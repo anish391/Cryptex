@@ -24,22 +24,30 @@ export default function CurrencyTable(props){
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-          	<StyledTableCell>Rank</StyledTableCell>
-            <StyledTableCell align="right">Crypto Exchange</StyledTableCell>
-            <StyledTableCell align="right">{props.type===PriceType.BUY ? "Buying Price" : "Selling Price"}</StyledTableCell>
-          	<StyledTableCell align="right">Crypto Currency</StyledTableCell>
+          	<StyledTableCell></StyledTableCell>
+            <StyledTableCell >Crypto Exchange</StyledTableCell>
+            <StyledTableCell >{props.type===PriceType.BUY ? "Buying Price" : "Selling Price"}</StyledTableCell>
+          	<StyledTableCell >Crypto Currency</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-        	
           {props.prices.map((row, index) => (
-          	<TableRow key={index} style ={ index % 2 ? { background : "#edf7f8" }:{ background : "white" }}>
-              <TableCell component="th" scope="row">{index+1}</TableCell>
-              <TableCell align="right">
+          	<TableRow key={index} style ={ 
+                (index % 2 === 0) ?  
+                  (index===0 ? (row.currency=="Bitcoin"? {background: "#fac71b36"} : {background: "#e5e8f7"}) : { background : "white" }): { background : "#edf7f8" }}>
+              <TableCell component="th" scope="row"> 
+              {index===0 ?
+               (row.currency=="Bitcoin" ? 
+                 <img src="https://img.icons8.com/fluent/24/000000/bitcoin.png" alt="Bitcoin icon."/> : 
+                 <img src="https://img.icons8.com/color/24/000000/ethereum.png" alt="Ethereum icon."/>
+               ) 
+               : null  } 
+              </TableCell>
+              <TableCell >
                 {row.exchange}
               </TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
-              <TableCell align="right">{row.currency}</TableCell>
+              <TableCell >${row.amount}</TableCell>
+              <TableCell >{row.currency}</TableCell>
             </TableRow>
           ))}
         </TableBody>

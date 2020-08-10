@@ -4,10 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="flag-app">
-      <header className ="title-header">
-        <h1 className="title-text">Cryptex</h1>
-      </header>
+    <div className="crypto-app">
       <BitcoinComparison />
     </div>
   );
