@@ -23,7 +23,7 @@ export default function RecommendedTable(props){
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <StyledTableCell></StyledTableCell>
+            <StyledTableCell align="center">Recommended</StyledTableCell>
             <StyledTableCell>Crypto Currency</StyledTableCell>
           	<StyledTableCell>Crypto Exchange</StyledTableCell>
             <StyledTableCell>Best Buying Price</StyledTableCell>
@@ -33,7 +33,7 @@ export default function RecommendedTable(props){
         </TableHead>
         <TableBody>
           <TableRow style={{background : "#fac71b36"}}>
-            <TableCell><img src="https://img.icons8.com/fluent/24/000000/bitcoin.png" alt="Bitcoin icon."/></TableCell>
+            <TableCell align="center"><img src="https://img.icons8.com/fluent/24/000000/bitcoin.png" alt="Bitcoin icon."/></TableCell>
             <TableCell>Bitcoin</TableCell>
             <TableCell>{bitcoin[0].exchange}</TableCell>
             <TableCell>${bitcoin[0].amount}</TableCell>
@@ -41,7 +41,7 @@ export default function RecommendedTable(props){
             <TableCell>${bitcoin[1].amount}</TableCell>
           </TableRow>
           <TableRow style={{background : "#e5e8f7"}}>
-            <TableCell><img src="https://img.icons8.com/color/24/000000/ethereum.png" alt="Ethereum icon."/></TableCell>
+            <TableCell align="center"><img src="https://img.icons8.com/color/24/000000/ethereum.png" alt="Ethereum icon."/></TableCell>
             <TableCell>Ethereum</TableCell>
             <TableCell>{ethereum[0].exchange}</TableCell>
             <TableCell>${ethereum[0].amount}</TableCell>

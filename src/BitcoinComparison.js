@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {queryCoinBaseBuy, queryCoinBaseSell, queryBlockChain, queryCoinMarketCap, queryKraken, queryGemini} from './BitcoinApis.js';
-import './BitcoinComparison.css';
 import Grid from '@material-ui/core/Grid';
 import CurrencyTable from './CurrencyTable';
 import RecommendedTable from './RecommendedTable';
@@ -15,10 +14,6 @@ class BitcoinComparison extends Component {
 			bitcoinSellPrices: [],
 			ethereumBuyPrices: [],
 			ethereumSellPrices: [],
-			bestBitcoinBuyingPrice: null,
-			bestBitcoinSellingPrice: null,
-			bestEthereumBuyingPrice: null,
-			bestEthereumSellingPrice: null
 		};
 	}
 
@@ -28,20 +23,18 @@ class BitcoinComparison extends Component {
 		.then(data => {
 			var {BitCoin, Ethereum} = data;
 			BitCoin = {
-				amount: BitCoin.amount,
+				amount: parseFloat(BitCoin.amount).toFixed(2),
 				exchange: "Coinbase",
 				currency: "Bitcoin"
 			}
 			Ethereum = {
-				amount: Ethereum.amount,
+				amount: parseFloat(Ethereum.amount).toFixed(2),
 				exchange: "Coinbase",
 				currency: "Ethereum"
 			}
 			this.setState(prevState => ({
 				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, BitCoin],
 				ethereumBuyPrices: [...prevState.ethereumBuyPrices, Ethereum],
-				bestBitcoinBuyingPrice: this.state.bitcoinBuyPrices[0],
-				bestEthereumBuyingPrice: this.state.ethereumBuyPrices[0]
 			}));
 		})
 		.catch(error => console.log(error.message));
@@ -50,20 +43,18 @@ class BitcoinComparison extends Component {
 		.then(data => {
 			var {BitCoin, Ethereum} = data;
 			BitCoin = {
-				amount: BitCoin.amount,
+				amount: parseFloat(BitCoin.amount).toFixed(2),
 				exchange: "Coinbase",
 				currency: "Bitcoin"
 			}
 			Ethereum = {
-				amount: Ethereum.amount,
+				amount: parseFloat(Ethereum.amount).toFixed(2),
 				exchange: "Coinbase",
 				currency: "Ethereum"
 			}
 			this.setState(prevState => ({
 				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoin],
 				ethereumSellPrices: [...prevState.ethereumSellPrices, Ethereum],
-				bestBitcoinSellingPrice: this.state.bitcoinSellPrices[0],
-				bestEthereumSellingPrice: this.state.ethereumSellPrices[0]
 			}));
 		})
 		.catch(error => console.log(error.message));
@@ -72,19 +63,17 @@ class BitcoinComparison extends Component {
 		.then(data => {
 			var BitCoin = {
 				exchange: "Blockchain.com",
-				amount: data.buy,
+				amount: data.buy.toFixed(2),
 				currency: "Bitcoin"
 			};
 			var Ethereum = {
 				exchange: "Blockchain.com",
-				amount: data.sell,
+				amount: data.sell.toFixed(2),
 				currency: "Bitcoin"
 			}
 			this.setState(prevState => ({
 				bitcoinBuyPrices: [...prevState.bitcoinBuyPrices, BitCoin],
 				bitcoinSellPrices: [...prevState.bitcoinSellPrices, Ethereum],
-				bestBitcoinBuyingPrice: this.state.bitcoinBuyPrices[0],
-				bestBitcoinSellingPrice: this.state.bitcoinSellPrices[0]
 			}));
 		})
 		.catch(error => console.log(error.message));
@@ -94,12 +83,12 @@ class BitcoinComparison extends Component {
 			var {BitCoin, Ethereum} = data;
 			BitCoin = {
 				exchange: "CoinMarketCap",
-				amount: BitCoin.price,
+				amount: BitCoin.price.toFixed(2),
 				currency: "Bitcoin"
 			}
 			Ethereum = {
 				exchange: "CoinMarketCap",
-				amount: Ethereum.price,
+				amount: Ethereum.price.toFixed(2),
 				currency: "Ethereum"
 			}
 			this.setState(prevState => ({
@@ -107,10 +96,6 @@ class BitcoinComparison extends Component {
 				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoin],
 				ethereumBuyPrices: [...prevState.ethereumBuyPrices, Ethereum],
 				ethereumSellPrices: [...prevState.ethereumSellPrices, Ethereum],
-				bestBitcoinBuyingPrice: this.state.bitcoinBuyPrices[0],
-				bestBitcoinSellingPrice: this.state.bitcoinSellPrices[0],
-				bestEthereumBuyingPrice: this.state.ethereumBuyPrices[0],
-				bestEthereumSellingPrice: this.state.ethereumSellPrices[0]
 			}));
 		})
 		.catch(error => console.log(error.message));
@@ -120,22 +105,22 @@ class BitcoinComparison extends Component {
 			var {BitCoin, Ethereum} = data;
 			const BitCoinBuy = {
 				exchange: "Kraken",
-				amount: BitCoin.b[0],
+				amount: parseFloat(BitCoin.b[0]).toFixed(2),
 				currency: "Bitcoin"
 			}
 			const BitCoinSell = {
 				exchange: "Kraken",
-				amount: BitCoin.a[0],
+				amount: parseFloat(BitCoin.a[0]).toFixed(2),
 				currency: "Bitcoin"
 			}
 			const EthereumBuy = {
 				exchange: "Kraken",
-				amount: Ethereum.b[0],
+				amount: parseFloat(Ethereum.b[0]).toFixed(2),
 				currency: "Ethereum"
 			}
 			const EthereumSell = {
 				exchange: "Kraken",
-				amount: Ethereum.a[0],
+				amount: parseFloat(Ethereum.a[0]).toFixed(2),
 				currency: "Ethereum"
 			}
 			this.setState(prevState => ({
@@ -143,10 +128,6 @@ class BitcoinComparison extends Component {
 				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoinSell],
 				ethereumBuyPrices: [...prevState.ethereumBuyPrices, EthereumBuy],
 				ethereumSellPrices: [...prevState.ethereumSellPrices, EthereumSell],
-				bestBitcoinBuyingPrice: this.state.bitcoinBuyPrices[0],
-				bestBitcoinSellingPrice: this.state.bitcoinSellPrices[0],
-				bestEthereumBuyingPrice: this.state.ethereumBuyPrices[0],
-				bestEthereumSellingPrice: this.state.ethereumSellPrices[0]
 			}));
 		})
 		.catch(error => console.log(error.message));
@@ -156,22 +137,22 @@ class BitcoinComparison extends Component {
 			var {BitCoin, Ethereum} = data;
 			const BitCoinBuy = {
 				exchange: "Gemini",
-				amount: BitCoin.bid,
+				amount: parseFloat(BitCoin.bid).toFixed(2),
 				currency: "Bitcoin"
 			}
 			const BitCoinSell = {
 				exchange: "Gemini",
-				amount: BitCoin.ask,
+				amount: parseFloat(BitCoin.ask).toFixed(2),
 				currency: "Bitcoin"
 			}
 			const EthereumBuy = {
 				exchange: "Gemini",
-				amount: Ethereum.bid,
+				amount: parseFloat(Ethereum.bid).toFixed(2),
 				currency: "Ethereum"
 			}
 			const EthereumSell = {
 				exchange: "Gemini",
-				amount: Ethereum.ask,
+				amount: parseFloat(Ethereum.ask).toFixed(2),
 				currency: "Ethereum"
 			}
 			this.setState(prevState => ({
@@ -179,10 +160,6 @@ class BitcoinComparison extends Component {
 				bitcoinSellPrices: [...prevState.bitcoinSellPrices, BitCoinSell],
 				ethereumBuyPrices: [...prevState.ethereumBuyPrices, EthereumBuy],
 				ethereumSellPrices: [...prevState.ethereumSellPrices, EthereumSell],
-				bestBitcoinBuyingPrice: this.state.bitcoinBuyPrices[0],
-				bestBitcoinSellingPrice: this.state.bitcoinSellPrices[0],
-				bestEthereumBuyingPrice: this.state.ethereumBuyPrices[0],
-				bestEthereumSellingPrice: this.state.ethereumSellPrices[0]
 			}));
 		})
 
@@ -193,18 +170,14 @@ class BitcoinComparison extends Component {
 			bitcoinBuyPrices, 
 			bitcoinSellPrices, 
 			ethereumBuyPrices, 
-			ethereumSellPrices, 
-			bestBitcoinBuyingPrice,
-			bestBitcoinSellingPrice,
-			bestEthereumBuyingPrice,
-			bestEthereumSellingPrice
+			ethereumSellPrices
 		}	 = this.state;
 		bitcoinBuyPrices = [].concat(bitcoinBuyPrices).sort((a,b) => a.amount > b.amount ? 1:-1);
 		ethereumBuyPrices = [].concat(ethereumBuyPrices).sort((a,b) => a.amount > b.amount ? 1:-1);
 		bitcoinSellPrices = [].concat(bitcoinSellPrices).sort((a,b)=> a.amount < b.amount ? 1:-1);
 		ethereumSellPrices = [].concat(ethereumSellPrices).sort((a,b)=> a.amount < b.amount ? 1:-1);
 
-		var canRecommend = bitcoinBuyPrices.length!=0 && bitcoinSellPrices!=0 && ethereumBuyPrices!=0 && ethereumSellPrices!=0;
+		var canRecommend = bitcoinBuyPrices.length!==0 && bitcoinSellPrices.length!==0 && ethereumBuyPrices.length!==0 && ethereumSellPrices.length!==0;
 
 		var bestPrices = {
 			bitcoin: [bitcoinBuyPrices[0], bitcoinSellPrices[0]],
@@ -218,18 +191,18 @@ class BitcoinComparison extends Component {
 						<RecommendedTable prices={bestPrices} /><br/>
 					</Grid>}
 					<Grid item xs={12} md={6} >
-						<CurrencyTable prices={bitcoinBuyPrices} type={PriceType.BUY} /><br/>
+						<CurrencyTable prices={bitcoinBuyPrices} currency="Bitcoin" type={PriceType.BUY} /><br/>
 					</Grid>
 					<Grid item xs={12} md={6}>
-						<CurrencyTable prices={bitcoinSellPrices} type={PriceType.SELL}/><br/>
+						<CurrencyTable prices={bitcoinSellPrices} currency="Bitcoin" type={PriceType.SELL}/><br/>
 					</Grid>
 				</Grid>
 				<Grid container spacing={5}>
 					<Grid item xs={12} md={6} >
-						<CurrencyTable prices={ethereumBuyPrices} type={PriceType.BUY}/><br/>
+						<CurrencyTable prices={ethereumBuyPrices} currency="Ethereum" type={PriceType.BUY}/><br/>
 					</Grid>
 					<Grid item xs={12} md={6}>
-						<CurrencyTable prices={ethereumSellPrices} type={PriceType.SELL}/><br/>
+						<CurrencyTable prices={ethereumSellPrices} currency="Ethereum" type={PriceType.SELL}/><br/>
 					</Grid>
 				</Grid>
 		  </div>
