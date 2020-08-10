@@ -34,7 +34,7 @@ export default function CurrencyTable(props){
           {props.prices.map((row, index) => (
           	<TableRow key={index} style ={ 
                 (index % 2 === 0) ?  
-                  (index===0 ? (row.currency=="Bitcoin"? {background: "#fac71b36"} : {background: "#e5e8f7"}) : { background : "white" }): { background : "#edf7f8" }}>
+                  (index===0 ? (row.currency=="Bitcoin"? {background: "#fac71b36"} : {background: "#e5e8f7"}) : { background : "white" }): { background : "#d5e4e4" }}>
               <TableCell component="th" scope="row"> 
               {index===0 ?
                (row.currency=="Bitcoin" ? 
